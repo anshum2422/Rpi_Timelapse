@@ -1,0 +1,16 @@
+[Unit]
+Description=Timelapse Camera
+After=multi-user.target
+
+[Service]
+Type=simple
+User=raspberry
+ExecStart=/usr/bin/python3 /home/raspberry/timelapse/camera.py
+WorkingDirectory=/home/raspberry/timelapse
+Restart=always
+RestartSec=10
+StandardOutput=append:/home/raspberry/timelapse/service.log
+StandardError=append:/home/raspberry/timelapse/service_error.log
+
+[Install]
+WantedBy=multi-user.target
