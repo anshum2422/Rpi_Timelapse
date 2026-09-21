@@ -1,20 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Raspberry Pi Timelapse Camera</title>
   <style>
-    body { font-family: Arial; background: #7d8c6e; color: #2c3a1f; text-align: center; padding: 40px; }
-    h1 { font-size: 42px; }
-    .card { background: #c5d0b0; padding: 20px; border-radius: 15px; display: inline-block; margin: 20px; }
-    a { color: #2c3a1f; font-weight: bold; }
+    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'VT323', 'Courier New', monospace;
+      background: #7d8c6e;
+      background-image: 
+        radial-gradient(circle at 20% 50%, #8b9b7e 1px, transparent 1px),
+        radial-gradient(circle at 80% 20%, #8b9b7e 1px, transparent 1px);
+      background-size: 50px 50px;
+      min-height: 100vh;
+      padding: 20px;
+      color: #2c3a1f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .crt {
+      max-width: 800px;
+      width: 100%;
+      background: #c5d0b0;
+      border: 8px solid #4a5a3a;
+      border-radius: 15px;
+      box-shadow: 
+        0 0 0 4px #2c3a1f,
+        0 0 0 8px #4a5a3a,
+        0 0 20px rgba(0,0,0,0.5);
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .crt::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(44,58,31,0.03) 2px,
+        rgba(44,58,31,0.03) 4px
+      );
+      pointer-events: none;
+    }
+    
+    h1 {
+      font-size: 48px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #2c3a1f;
+      text-shadow: 2px 2px #8b9b7e;
+      margin-bottom: 10px;
+    }
+    
+    .subtitle {
+      font-size: 20px;
+      color: #4a5a3a;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+      border-bottom: 3px double #4a5a3a;
+      padding-bottom: 20px;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin: 30px 0;
+    }
+    
+    .feature {
+      background: #b8c5a4;
+      border: 2px solid #4a5a3a;
+      padding: 15px;
+      border-radius: 5px;
+    }
+    
+    .feature .icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    
+    .feature .label {
+      font-size: 16px;
+      color: #2c3a1f;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      margin: 8px;
+      font-family: 'VT323', monospace;
+      font-size: 22px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      background: #8b9b7e;
+      color: #2c3a1f;
+      border: 3px solid #4a5a3a;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+    
+    .btn:hover {
+      background: #7d8c6e;
+      border-color: #2c3a1f;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 0 #4a5a3a;
+    }
+    
+    .blink {
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #4a5a3a;
+      letter-spacing: 2px;
+    }
+    
+    @media (max-width: 600px) {
+      h1 { font-size: 32px; }
+      .crt { padding: 25px; }
+    }
   </style>
 </head>
 <body>
-  <h1>◈ Raspberry Pi Timelapse Camera ◈</h1>
-  <div class="card">
-    <p>Timelapse camera with live streaming</p>
-    <p>📸 5-second captures | 📡 30 FPS stream | 🎬 Auto video</p>
-    <p><a href="https://github.com/YOUR_USERNAME/raspberry-pi-timelapse">View Source Code</a></p>
+  <div class="crt">
+    <h1>◈ TIMELAPSE ◈</h1>
+    <div class="subtitle">Raspberry Pi Zero W Camera System</div>
+    
+    <p style="font-size: 18px; line-height: 1.6; margin-bottom: 20px;">
+      A tiny Raspberry Pi camera that snaps a photo every 5 seconds, 
+      stitches them into a fast-forward timelapse video, and streams 
+      live footage over WiFi — all wrapped in a retro sage-green web UI.
+    </p>
+    
+    <div class="features">
+      <div class="feature">
+        <div class="icon">📸</div>
+        <div class="label">5s Capture</div>
+      </div>
+      <div class="feature">
+        <div class="icon">📡</div>
+        <div class="label">Live Stream</div>
+      </div>
+      <div class="feature">
+        <div class="icon">🎬</div>
+        <div class="label">Auto Video</div>
+      </div>
+      <div class="feature">
+        <div class="icon">🚀</div>
+        <div class="label">Auto Start</div>
+      </div>
+    </div>
+    
+    <div>
+      <a class="btn" href="https://github.com/YOUR_USERNAME/raspberry-pi-timelapse">📂 View Source</a>
+      <a class="btn" href="https://github.com/YOUR_USERNAME/raspberry-pi-timelapse/blob/main/README.md">📖 Read Docs</a>
+    </div>
+    
+    <div class="footer">
+      <span class="blink">⬤</span> SYSTEM ACTIVE <span class="blink">⬤</span>
+    </div>
   </div>
 </body>
 </html>
